@@ -2,6 +2,27 @@
   <button id="addNewTodo" mat-raised-button (click)="openDialog()">Add New Todo</button>
 </div>
 
+<!--https://stackoverflow.com/questions/36388270/how-can-i-apply-a-quantity-limit-to-ngfor-->
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{todo.owner}}</mat-card-title>
+    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-accordion *ngIf="todos; else todosError">
+    <mat-expansion-panel #elem class="todos" [id]="todo.category" [expanded]="this.isHighlighted(todo)"
+                         *ngFor="let todo of this.filterTodos(todoBody, todoCategory)">
+      <mat-expansion-panel-header>
+        <mat-panel-title matTooltip="status: {{todo.status}}">{{todo.status}}</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-panel-description>Owner {{todo.owner}}</mat-panel-description>
+      <mat-panel-description>Category {{todo.category}}</mat-panel-description>
+      <mat-panel-description>Body: {{todo.body}}</mat-panel-description>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>
 
 <div layout-gt-sm="row">
   <div flex-gt-sm="80" flex-offset-gt-sm="10">
@@ -28,18 +49,18 @@
         <button mat-raised-button id="submit" color="primary" #input type="button" (click)="loadService()">Submit
         </button>
 
-        <mat-accordion *ngIf="todos; else todosError">
-          <mat-expansion-panel #elem class="todos" [id]="todo.category" [expanded]="this.isHighlighted(todo)"
-                               *ngFor="let todo of this.filterTodos(todoBody, todoCategory)">
-            <mat-expansion-panel-header>
-              <mat-panel-title matTooltip="status: {{todo.status}}">{{todo.status}}</mat-panel-title>
+        <!--<mat-accordion *ngIf="todos; else todosError">-->
+          <!--<mat-expansion-panel #elem class="todos" [id]="todo.category" [expanded]="this.isHighlighted(todo)"-->
+                               <!--*ngFor="let todo of this.filterTodos(todoBody, todoCategory)">-->
+            <!--<mat-expansion-panel-header>-->
+              <!--<mat-panel-title matTooltip="status: {{todo.status}}">{{todo.status}}</mat-panel-title>-->
 
-            </mat-expansion-panel-header>
-            <mat-panel-description>Owner {{todo.owner}}</mat-panel-description>
-            <mat-panel-description>Category {{todo.category}}</mat-panel-description>
-            <mat-panel-description>Body: {{todo.body}}</mat-panel-description>
-          </mat-expansion-panel>
-        </mat-accordion>
+            <!--</mat-expansion-panel-header>-->
+            <!--<mat-panel-description>Owner {{todo.owner}}</mat-panel-description>-->
+            <!--<mat-panel-description>Category {{todo.category}}</mat-panel-description>-->
+            <!--<mat-panel-description>Body: {{todo.body}}</mat-panel-description>-->
+          <!--</mat-expansion-panel>-->
+        <!--</mat-accordion>-->
         <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
         <ng-template #todosError>
           <mat-error>
@@ -54,3 +75,11 @@
     </mat-card>
   </div>
 </div>
+
+
+
+
+
+
+
+
