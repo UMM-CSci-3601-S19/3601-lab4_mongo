@@ -4,7 +4,6 @@ import {Todo} from './todo';
 import {Observable} from 'rxjs/Observable';
 import {MatDialog} from '@angular/material';
 import {AddTodoComponent} from './add-todo.component';
-import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: 'todo-list-component',
@@ -23,7 +22,6 @@ export class TodoListComponent implements OnInit {
   public todoStatus: string;
   public todoBody: string;
   public todoCategory: string;
-
 
 
   // The ID of the

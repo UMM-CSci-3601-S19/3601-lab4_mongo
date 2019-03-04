@@ -88,12 +88,13 @@ public class TodoController {
     if (queryParams.containsKey("status")) {
       String targetContent = (queryParams.get("status")[0]);
 
-      if(targetContent.equals("incomplete")){
-        targetBool = false;
-      }
-
       if(targetContent.equals("complete")){
         targetBool = true;
+      }
+
+
+      if(targetContent.equals("incomplete")){
+        targetBool = false;
       }
 
 
