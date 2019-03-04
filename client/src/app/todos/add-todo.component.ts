@@ -27,16 +27,16 @@ export class AddTodoComponent implements OnInit {
       {type: 'existingOwner', message: 'Owner has already been taken'}
     ],
 
-    'age': [
-      {type: 'pattern', message: 'Age must be a number'},
-      {type: 'min', message: 'Age must be at least 15'},
-      {type: 'max', message: 'Age may not be greater than 200'},
-      {type: 'required', message: 'Age is required'}
+    'status': [
+      {type: 'pattern', message: 'status must be complete or incomplete'},
     ],
 
-    'email': [
-      {type: 'email', message: 'Email must be formatted properly'}
-    ]
+    'category': [
+      {type: 'required', message: 'Category is required'},
+      {type: 'minlength', message: 'Category must be at least 2 characters long'},
+      {type: 'maxlength', message: 'Category cannot be more than 25 characters long'},
+      {type: 'pattern', message: 'Category must contain only numbers and letters'}
+    ],
   };
 
   createForms() {
@@ -52,21 +52,27 @@ export class AddTodoComponent implements OnInit {
         Validators.required
       ])),
 
-      // Since this is for a company, we need workers to be old enough to work, and probably not older than 200.
-      age: new FormControl('age', Validators.compose([
-        Validators.pattern('^[0-9]+[0-9]?'),
+      // Since this is a status, it needs to be complete or incomplete
+      status: new FormControl('status', Validators.compose([
+        Validators.pattern('^[A-Za-z0-9\s]+[A-Za-z0-9\s]+$(\.0-9+)?'),
         Validators.min(15),
         Validators.max(200),
-        Validators.required
       ])),
 
       // We don't care much about what is in the company field, so we just add it here as part of the form
       // without any particular validation.
-      company: new FormControl('company'),
+      body: new FormControl('body'),
 
-      // We don't need a special validator just for our app here, but there is a default one for email.
-      email: new FormControl('email', Validators.email)
+      // Our category validator is exactly the same as owner
+      category: new FormControl('category', Validators.compose([
+        OwnerValidator.validOwner,
+        Validators.minLength(2),
+        Validators.maxLength(25),
+        Validators.pattern('^[A-Za-z0-9\\s]+[A-Za-z0-9\\s]+$(\\.0-9+)?'),
+        Validators.required
+      ])),
     })
+
 
   }
 

@@ -41,7 +41,8 @@ import {MatRadioModule} from '@angular/material/radio';
     //our new declarations
     TodoListComponent,
     TodoComponent,
-    AddTodoComponent
+    AddTodoComponent,
+
   ],
   providers: [
     UserListService,
@@ -53,6 +54,7 @@ import {MatRadioModule} from '@angular/material/radio';
   ],
   entryComponents: [
     AddUserComponent,
+    AddTodoComponent
   ],
   bootstrap: [AppComponent]
 })
