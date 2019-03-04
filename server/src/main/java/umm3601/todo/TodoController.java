@@ -85,20 +85,18 @@ public class TodoController {
 //      filterDoc = filterDoc.append("status", contentRegQuery);
 //    }
 
-    if (queryParams.containsKey("status") || !queryParams.containsKey("status")) {
+    if (queryParams.containsKey("status")) {
       String targetContent = (queryParams.get("status")[0]);
-
-      if(targetContent.equals("incomplete")){
-        targetBool = false;
-      }
 
       if(targetContent.equals("complete")){
         targetBool = true;
       }
 
-      if(!targetContent.equals("incomplete")){
+
+      if(targetContent.equals("incomplete")){
         targetBool = false;
       }
+
 
       filterDoc = filterDoc.append("status", targetBool);
     }

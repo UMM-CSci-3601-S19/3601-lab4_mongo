@@ -22,6 +22,8 @@ import {AddTodoComponent} from "./todos/add-todo.component";
 import {TodoListService} from "./todos/todo-list.service";
 
 import {MatRadioModule} from '@angular/material/radio';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   imports: [
@@ -29,7 +31,8 @@ import {MatRadioModule} from '@angular/material/radio';
     HttpClientModule,
     Routing,
     CustomModule,
-    MatRadioModule
+    MatRadioModule,
+    MatIconModule
   ],
   declarations: [
     AppComponent,
@@ -41,7 +44,8 @@ import {MatRadioModule} from '@angular/material/radio';
     //our new declarations
     TodoListComponent,
     TodoComponent,
-    AddTodoComponent
+    AddTodoComponent,
+
   ],
   providers: [
     UserListService,
@@ -53,6 +57,7 @@ import {MatRadioModule} from '@angular/material/radio';
   ],
   entryComponents: [
     AddUserComponent,
+    AddTodoComponent
   ],
   bootstrap: [AppComponent]
 })

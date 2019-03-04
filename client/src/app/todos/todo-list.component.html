@@ -38,19 +38,32 @@
           <mat-radio-button value="3">Both</mat-radio-button>
         </mat-radio-group>
 
-        <mat-accordion *ngIf="todos; else todosError">
-          <mat-expansion-panel #elem class="todos" [id]="todo.category" [expanded]="this.isHighlighted(todo)"
-                               *ngFor="let todo of this.filterTodos(todoBody, todoCategory)">
-            <mat-expansion-panel-header>
-              <mat-panel-title matTooltip="status: {{todo.status}}">{{todo.status}}</mat-panel-title>
 
-            </mat-expansion-panel-header>
-            <mat-panel-description>Owner {{todo.owner}}</mat-panel-description>
-            <mat-panel-description>Category {{todo.category}}</mat-panel-description>
-            <mat-panel-description>Body: {{todo.body}}</mat-panel-description>
-            <mat-panel-description>Body: {{todo.status}}</mat-panel-description>
-          </mat-expansion-panel>
-        </mat-accordion>
+        <div class="cardlist" *ngIf="todos; else todosError">
+          <mat-card #elem class="todos" [id]="todo.category"
+                    *ngFor="let todo of this.filterTodos(todoBody, todoCategory)">
+            <mat-icon *ngIf="todo.status === false">cancel_presentation</mat-icon>
+            <mat-icon *ngIf="todo.status === true">check_circle</mat-icon>
+            <mat-card-header>
+              <mat-card-title>{{todo.owner}}</mat-card-title>
+              <mat-card-subtitle [ngClass]="{
+              'video-games' : todo.category === 'video games',
+              'homework' : todo.category === 'homework',
+              'software-design' : todo.category === 'software design',
+              'groceries' : todo.category === 'groceries'
+              }">
+
+                {{todo.category}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>
+                {{todo.body}}
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+
         <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
         <ng-template #todosError>
           <mat-error>
