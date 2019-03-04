@@ -87,7 +87,7 @@ public class TodoRequestHandler {
   }
   public Boolean statusBool(String status) {
     Boolean statusBoolean = true;
-    if(!(status == "complete")) {
+    if(!(status.equals("complete"))) {
       statusBoolean = false;
     }
 
