@@ -20,10 +20,10 @@ export class TodoListComponent implements OnInit {
   // These are the target values used in searching.
   // We should rename them to make that clearer.
   public todoOwner: string;
-  //public todoStatus: string;
+  public todoStatus: string;
   public todoBody: string;
   public todoCategory: string;
-  todoStatus = "incomplete";
+
 
 
   // The ID of the

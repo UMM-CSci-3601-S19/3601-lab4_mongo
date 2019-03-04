@@ -28,8 +28,7 @@ export class AddTodoComponent implements OnInit {
     ],
 
     'status': [
-      {type: 'pattern', message: 'status must be a boolean'},
-      {type: 'required', message: 'Status is required'}
+      {type: 'pattern', message: 'status must be complete or incomplete'},
     ],
 
     'category': [
@@ -53,12 +52,11 @@ export class AddTodoComponent implements OnInit {
         Validators.required
       ])),
 
-      // Since this is for a company, we need workers to be old enough to work, and probably not older than 200.
+      // Since this is a status, it needs to be complete or incomplete
       status: new FormControl('status', Validators.compose([
-        Validators.pattern('^([Tt]+[Rr]+[Uu]+[Ee]|[Ff]+[Aa]+[Ll]+[Ss]+[Ee])$'),
+        Validators.pattern('^[A-Za-z0-9\s]+[A-Za-z0-9\s]+$(\.0-9+)?'),
         Validators.min(15),
         Validators.max(200),
-        Validators.required
       ])),
 
       // We don't care much about what is in the company field, so we just add it here as part of the form
