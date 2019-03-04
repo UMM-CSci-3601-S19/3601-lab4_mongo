@@ -7,3 +7,36 @@
   padding-right: 14px;
 }
 
+.cardlist  {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.todos {
+  flex-basis: 20%;
+}
+
+mat-card-subtitle {
+  background: rgba(150, 50, 200, 0.5);
+}
+
+.video-games {
+  background: rgba(0, 255, 0, 0.5);
+}
+
+.homework {
+  background: rgba(255, 0, 0, 0.5);
+}
+
+.software-design {
+  background: rgba(0, 0, 255, 0.5);
+}
+
+.groceries {
+  background: rgba(255, 255, 153, 0.5);
+}
+
+
+
+
