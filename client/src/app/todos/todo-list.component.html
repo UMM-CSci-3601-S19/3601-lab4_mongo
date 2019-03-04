@@ -40,7 +40,7 @@
 
 
         <div class="cardlist" *ngIf="todos; else todosError">
-          <mat-card class="nott" #elem class="todos" [id]="todo.category"
+          <mat-card #elem class="todos" [id]="todo.category"
                     *ngFor="let todo of this.filterTodos(todoBody, todoCategory)">
             <mat-icon>cancel_presentation</mat-icon>
             <mat-card-header>

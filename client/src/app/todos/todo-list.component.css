@@ -9,21 +9,12 @@
 
 .cardlist  {
   display: flex;
-  justify-content: space-between;
-  /*flex-wrap: wrap;*/
-  /*max-width: 32%;*/
-  /*height: 5%;*/
-  /*flex-direction: row;*/
-  /*flex-wrap: wrap;*/
-  /*width: 100%;*/
-  /*flex-flow: row wrap;*/
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-.nott {
-  flex: 1;
+.todos {
+  flex-basis: 20%;
 }
 
-.cardlist .nott {
-  width: 32%;
-}
 
