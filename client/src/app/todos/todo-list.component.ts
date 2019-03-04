@@ -4,7 +4,6 @@ import {Todo} from './todo';
 import {Observable} from 'rxjs/Observable';
 import {MatDialog} from '@angular/material';
 import {AddTodoComponent} from './add-todo.component';
-import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: 'todo-list-component',
@@ -20,11 +19,11 @@ export class TodoListComponent implements OnInit {
   // These are the target values used in searching.
   // We should rename them to make that clearer.
   public todoOwner: string;
-  public todoStatus: string;
+  // public todoStatus: string;
   public todoBody: string;
   public todoCategory: string;
-  todoStatus = "incomplete";
 
+  todoStatus = "incomplete";
 
   // The ID of the
   private highlightedID: string = '';
