@@ -33,14 +33,6 @@ export class TodoPage {
     input.sendKeys(name);
   }
 
-  selectUpKey() {
-    browser.actions().sendKeys(Key.ARROW_UP).perform();
-  }
-
-  backspace() {
-    browser.actions().sendKeys(Key.BACK_SPACE).perform();
-  }
-
   getCompany(company: string) {
     const input = element(by.id('todoCompany'));
     input.click();
@@ -63,6 +55,14 @@ export class TodoPage {
 
   getTodos() {
     return element.all(by.className('todos'));
+  }
+
+  selectUpKey() {
+    browser.actions().sendKeys(Key.ARROW_UP).perform();
+  }
+
+  backspace() {
+    browser.actions().sendKeys(Key.BACK_SPACE).perform();
   }
 
   elementExistsWithId(idOfElement: string): promise.Promise<boolean> {
