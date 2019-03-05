@@ -35,12 +35,12 @@ describe('Todo list', () => {
     expect(page.getTodoTitle()).toEqual('Todos');
   });
 
-  it('Should open the expansion panel and get the company', () => {
+  it('Should open the expansion panel and get the status', () => {
     page.navigateTo();
     page.getStatus('complete');
     browser.actions().sendKeys(Key.ENTER).perform();
 
-    const barry_element = element(by.id('Barry'));
+    const barry_element = element(by.id('e2etrueowner'));
     browser.wait(protractor.ExpectedConditions.presenceOf(barry_element), 10000);
 
     // This is just to show that the panels can be opened
@@ -48,7 +48,7 @@ describe('Todo list', () => {
     browser.actions().sendKeys(Key.ENTER).perform();
   });
 
-  //these numbers were right until todos are added
+  //these numbers were right UNTIL todos are added
   it('Should allow us to clear a search for status and then still successfully search again', () => {
     page.navigateTo();
     page.getStatus('complete');
