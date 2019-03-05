@@ -62,10 +62,8 @@ describe('Todo list', () => {
     page.getTodos().then((todos) => {
       expect(todos.length).toBe(49);
     });
-    expect(page.getUniqueTodoByID('58af3a600343927e48e8721a')).toEqual('Connie Stewart');
-    expect(page.getUniqueTodo('stokesclayton@momentia.com')).toEqual('Stokes Clayton');
-    expect(page.getUniqueTodo('kittypage@surelogic.com')).toEqual('Kitty Page');
-    expect(page.getUniqueTodo('margueritenorton@recognia.com')).toEqual('Marguerite Norton');
+    expect(page.getUniqueTodoByID('58af3a600343927e48e8721a')).toEqual('Workman');
+    expect(page.getUniqueTodoByID('58af3a600343927e48e87219')).toEqual('Workman');
   });
 
   it('Should allow us to clear a search for status and then still successfully search again', () => {
@@ -123,12 +121,12 @@ describe('Todo list', () => {
     it('Should actually add the todo with the information we put in the fields', () => {
       page.navigateTo();
       page.click('addNewTodo');
-      page.field('nameField').sendKeys('Tracy Kim');
+      page.field('ownerField').sendKeys('Bob Keppers');
       // Need to clear the age field because the default value is -1.
-      page.field('ageField').clear();
-      page.field('ageField').sendKeys('26');
-      page.field('companyField').sendKeys('Awesome Startup, LLC');
-      page.field('emailField').sendKeys('tracy@awesome.com');
+      page.field('statusField').clear();
+      page.field('statusField').sendKeys('26');
+      page.field('bodyField').sendKeys('Finish e2e tests');
+      page.field('categoryField').sendKeys('homework');
       expect(page.button('confirmAddTodoButton').isEnabled()).toBe(true);
       page.click('confirmAddTodoButton');
 
@@ -139,10 +137,10 @@ describe('Todo list', () => {
        * and then for the client to display this new todo.
        * http://www.protractortest.org/#/api?view=ProtractorExpectedConditions
        */
-      const tracy_element = element(by.id('tracy@awesome.com'));
-      browser.wait(protractor.ExpectedConditions.presenceOf(tracy_element), 10000);
+      const bob_element = element(by.id('Bob Keppers'));
+      browser.wait(protractor.ExpectedConditions.presenceOf(bob_element), 10000);
 
-      expect(page.getUniqueTodo('tracy@awesome.com')).toMatch('Tracy Kim.*'); // toEqual('Tracy Kim');
+      // expect(page.getUniqueTodoByID('tracy@awesome.com')).toMatch('Tracy Kim.*'); // toEqual('Tracy Kim');
     });
 
     describe('Add Todo (Validation)', () => {
