@@ -37,23 +37,11 @@ describe('Todo list', () => {
 
   it('should type something in filter name box and check that it returned correct element', () => {
     page.navigateTo();
-    page.typeAName('t');
-    expect(page.getUniqueTodo('kittypage@surelogic.com')).toEqual('Kitty Page');
+    page.getOwner('t');
+    expect(page.getUniqueTodoByID('kittypage@surelogic.com')).toEqual('Kitty Page');
     page.backspace();
-    page.typeAName('lynn');
-    expect(page.getUniqueTodo('lynnferguson@niquent.com')).toEqual('Lynn Ferguson');
-  });
-
-  it('should click on the age 27 times and return 3 elements then ', () => {
-    page.navigateTo();
-    page.getTodoByAge();
-    for (let i = 0; i < 27; i++) {
-      page.selectUpKey();
-    }
-
-    expect(page.getUniqueTodo('stokesclayton@momentia.com')).toEqual('Stokes Clayton');
-
-    expect(page.getUniqueTodo('merrillparker@escenta.com')).toEqual('Merrill Parker');
+    page.getOwner('lynn');
+    expect(page.getUniqueTodoByID('lynnferguson@niquent.com')).toEqual('Lynn Ferguson');
   });
 
   it('Should open the expansion panel and get the company', () => {
@@ -68,44 +56,44 @@ describe('Todo list', () => {
     browser.actions().sendKeys(Key.ENTER).perform();
   });
 
-  it('Should allow us to filter todos based on company', () => {
+  it('Should allow us to filter todos based on status', () => {
     page.navigateTo();
-    page.getCompany('o');
+    page.getStatus('workm');
     page.getTodos().then((todos) => {
-      expect(todos.length).toBe(4);
+      expect(todos.length).toBe(49);
     });
-    expect(page.getUniqueTodo('conniestewart@ohmnet.com')).toEqual('Connie Stewart');
+    expect(page.getUniqueTodoByID('58af3a600343927e48e8721a')).toEqual('Connie Stewart');
     expect(page.getUniqueTodo('stokesclayton@momentia.com')).toEqual('Stokes Clayton');
     expect(page.getUniqueTodo('kittypage@surelogic.com')).toEqual('Kitty Page');
     expect(page.getUniqueTodo('margueritenorton@recognia.com')).toEqual('Marguerite Norton');
   });
 
-  it('Should allow us to clear a search for company and then still successfully search again', () => {
+  it('Should allow us to clear a search for status and then still successfully search again', () => {
     page.navigateTo();
-    page.getCompany('m');
+    page.getStatus('complete');
     page.getTodos().then((todos) => {
-      expect(todos.length).toBe(2);
+      expect(todos.length).toBe(145);
     });
-    page.click('companyClearSearch');
+    page.click('statusClearSearch');
     page.getTodos().then((todos) => {
-      expect(todos.length).toBe(10);
+      expect(todos.length).toBe(302);
     });
-    page.getCompany('ne');
+    page.getStatus('co');
     page.getTodos().then((todos) => {
-      expect(todos.length).toBe(3);
+      expect(todos.length).toBe(157);
     });
   });
 
-  it('Should allow us to search for company, update that search string, and then still successfully search', () => {
+  it('Should allow us to search for an owner, update that search string, and then still successfully search', () => {
     page.navigateTo();
-    page.getCompany('o');
+    page.getOwner('b');
     page.getTodos().then((todos) => {
-      expect(todos.length).toBe(4);
+      expect(todos.length).toBe(94);
     });
-    page.field('todoCompany').sendKeys('h');
+    page.field('todoOwner').sendKeys('ba');
     page.click('submit');
     page.getTodos().then((todos) => {
-      expect(todos.length).toBe(1);
+      expect(todos.length).toBe(51);
     });
   });
 

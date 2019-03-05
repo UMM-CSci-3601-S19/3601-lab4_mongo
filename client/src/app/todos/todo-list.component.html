@@ -18,8 +18,11 @@
                  (input)="todoCategory = $event.target.value">
         </mat-form-field>
         <mat-form-field>
-          <input matInput id="todoStatus" #input type="text" placeholder="Filter by status"
-                 (input)="todoStatus = $event.target.value">
+          <input matInput id="todoStatus" #input type="search" placeholder="Filter by status"
+                 [(ngModel)]="todoStatus">
+          <button mat-button id="statusClearSearch" type="button" *ngIf="todoStatus" matSuffix mat-icon-button
+                  aria-label="clear" (click)="todoStatus='';loadService()"><mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
         <mat-form-field>
           <input matInput id="todoOwner" #input type="search" placeholder="Search for owner"
@@ -31,6 +34,8 @@
         </mat-form-field>
         <button mat-raised-button id="submit" color="primary" #input type="button" (click)="loadService()">Submit
         </button>
+        <!--<button mat-raised-button id="clearSearchAll" color="primary" #input type="button" *ngIf="todoOwner" (click)="todoOwner='';loadService()">Clear All-->
+        <!--</button>-->
 
         <mat-radio-group>
           <mat-radio-button value="1">Incomplete</mat-radio-button>

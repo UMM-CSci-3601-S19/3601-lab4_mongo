@@ -27,38 +27,43 @@ export class TodoPage {
     return title;
   }
 
-  typeAName(name: string) {
-    const input = element(by.id('todoName'));
+  typeABody(body: string) {
+    const input = element(by.id('todoBody'));
     input.click();
-    input.sendKeys(name);
+    input.sendKeys(body);
   }
 
-  getCompany(company: string) {
-    const input = element(by.id('todoCompany'));
+  typeACategory(category: string) {
+    const input = element(by.id('todoCategory'));
     input.click();
-    input.sendKeys(company);
+    input.sendKeys(category);
+  }
+
+  getOwner(owner: string) {
+    const input = element(by.id('todoOwner'));
+    input.click();
+    input.sendKeys(owner);
     this.click('submit');
   }
 
-  getTodoByAge() {
-    const input = element(by.id('todoName'));
+  getStatus(status: string) {
+    const input = element(by.id('todoStatus'));
     input.click();
-    input.sendKeys(Key.TAB);
+    input.sendKeys(status);
+    this.click('submit');
   }
 
-  getUniqueTodo(email: string) {
-    const todo = element(by.id(email)).getText();
-    this.highlightElement(by.id(email));
+  //We don't want searching by ID, but oID is technically the only unique identifier (bar the fact that the bodies are
+  // probably unique in practice but not in theory)
+  getUniqueTodoByID(_id: string) {
+    const todo = element(by.id(_id)).getText();
+    this.highlightElement(by.id(_id));
 
     return todo;
   }
 
   getTodos() {
     return element.all(by.className('todos'));
-  }
-
-  selectUpKey() {
-    browser.actions().sendKeys(Key.ARROW_UP).perform();
   }
 
   backspace() {
