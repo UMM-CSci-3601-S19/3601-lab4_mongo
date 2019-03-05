@@ -37,6 +37,17 @@ mat-card-subtitle {
   background: rgba(255, 255, 153, 0.5);
 }
 
+.complete {
+  color: green;
+}
+
+.incomplete {
+  color: red;
+}
+
+.owner {
+  font-size: 2rem;
+}
 
 
 
