@@ -129,7 +129,6 @@ public class UserControllerSpec {
     assertEquals("Name should match", "Sam", sam.get("name"));
     String noJsonResult = userController.getUser(new ObjectId().toString());
     assertNull("No name should match", noJsonResult);
-
   }
 
   @Test
