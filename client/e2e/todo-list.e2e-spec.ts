@@ -46,19 +46,20 @@ describe('Todo list', () => {
 
   it('Should open the expansion panel and get the company', () => {
     page.navigateTo();
-    page.getCompany('DATA');
+    page.getStatus('complete');
     browser.actions().sendKeys(Key.ENTER).perform();
 
-    expect(page.getUniqueTodo('valerieerickson@datagene.com')).toEqual('Valerie Erickson');
+    const barry_element = element(by.id('Barry'));
+    browser.wait(protractor.ExpectedConditions.presenceOf(barry_element), 10000);
 
     // This is just to show that the panels can be opened
     browser.actions().sendKeys(Key.TAB).perform();
     browser.actions().sendKeys(Key.ENTER).perform();
   });
 
-  it('Should allow us to filter todos based on status', () => {
+  it('Should allow us to filter todos based on owner', () => {
     page.navigateTo();
-    page.getStatus('workm');
+    page.getOwner('workm');
     page.getTodos().then((todos) => {
       expect(todos.length).toBe(49);
     });
@@ -74,11 +75,11 @@ describe('Todo list', () => {
     });
     page.click('statusClearSearch');
     page.getTodos().then((todos) => {
-      expect(todos.length).toBe(302);
+      expect(todos.length).toBe(304);
     });
     page.getStatus('co');
     page.getTodos().then((todos) => {
-      expect(todos.length).toBe(157);
+      expect(todos.length).toBe(145);
     });
   });
 
@@ -86,9 +87,9 @@ describe('Todo list', () => {
     page.navigateTo();
     page.getOwner('b');
     page.getTodos().then((todos) => {
-      expect(todos.length).toBe(94);
+      expect(todos.length).toBe(142);
     });
-    page.field('todoOwner').sendKeys('ba');
+    page.field('todoOwner').sendKeys('a');
     page.click('submit');
     page.getTodos().then((todos) => {
       expect(todos.length).toBe(51);
@@ -150,68 +151,50 @@ describe('Todo list', () => {
       });
 
       it('Should allow us to put information into the fields of the add todo dialog', () => {
-        expect(page.field('nameField').isPresent()).toBeTruthy('There should be a name field');
-        page.field('nameField').sendKeys('Dana Jones');
-        expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
+        expect(page.field('ownerField').isPresent()).toBeTruthy('There should be an owner field');
+        page.field('ownerField').sendKeys('Ruth Berg');
+        expect(element(by.id('statusField')).isPresent()).toBeTruthy('There should be a status field');
         // Need to clear this field because the default value is -1.
-        page.field('ageField').clear();
-        page.field('ageField').sendKeys('24');
-        expect(page.field('companyField').isPresent()).toBeTruthy('There should be a company field');
-        page.field('companyField').sendKeys('Awesome Startup, LLC');
-        expect(page.field('emailField').isPresent()).toBeTruthy('There should be an email field');
-        page.field('emailField').sendKeys('dana@awesome.com');
+        page.field('statusField').clear();
+        page.field('statusField').sendKeys('complete');
+        expect(page.field('bodyField').isPresent()).toBeTruthy('There should be a body field');
+        page.field('bodyField').sendKeys('Take out the trash');
+        expect(page.field('categoryField').isPresent()).toBeTruthy('There should be a category field');
+        page.field('categoryField').sendKeys('video games');
       });
 
-      it('Should show the validation error message about age being too small if the age is less than 15', () => {
-        expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
-        page.field('ageField').clear();
-        page.field('ageField').sendKeys('2');
+      it('Should show the validation error message about owner name containing and invalid character', () => {
+        expect(element(by.id('ownerField')).isPresent()).toBeTruthy('There should be an age field');
+        page.field('ownerField').clear();
+        page.field('ownerField').sendKeys('!');
         expect(page.button('confirmAddTodoButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
-        page.field('nameField').click();
-        expect(page.getTextFromField('age-error')).toBe('Age must be at least 15');
+        page.field('ownerField').click();
+        expect(page.getTextFromField('owner-error')).toBe('Owner must contain only numbers and letters');
       });
 
-      it('Should show the validation error message about age being required', () => {
-        expect(element(by.id('ageField')).isPresent()).toBeTruthy('There should be an age field');
-        page.field('ageField').clear();
+      it('Should show the validation error message about owner being required', () => {
+        expect(element(by.id('ownerField')).isPresent()).toBeTruthy('There should be an owner field');
+        page.field('ownerField').clear();
         expect(page.button('confirmAddTodoButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
-        page.field('nameField').click();
-        expect(page.getTextFromField('age-error')).toBe('Age is required');
+        page.field('statusField').click();
+        expect(page.getTextFromField('owner-error')).toBe('Owner is required');
       });
 
-      it('Should show the validation error message about name being required', () => {
-        expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be a name field');
+      it('Should show the validation error message about category being required', () => {
+        expect(element(by.id('categoryField')).isPresent()).toBeTruthy('There should be a category field');
         // '\b' is a backspace, so this enters an 'A' and removes it so this
         // field is "dirty", i.e., it's seen as having changed so the validation
         // tests are run.
-        page.field('nameField').sendKeys('A\b');
+        page.field('categoryField').sendKeys('A\b');
         expect(page.button('confirmAddTodoButton').isEnabled()).toBe(false);
         //clicking somewhere else will make the error appear
-        page.field('ageField').click();
-        expect(page.getTextFromField('name-error')).toBe('Name is required');
+        page.field('bodyField').click();
+        expect(page.getTextFromField('category-error')).toBe('Category is required');
       });
 
-      it('Should show the validation error message about the format of name', () => {
-        expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be an name field');
-        page.field('nameField').sendKeys('Don@ld Jones');
-        expect(page.button('confirmAddTodoButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
-        page.field('ageField').click();
-        expect(page.getTextFromField('name-error')).toBe('Name must contain only numbers and letters');
-      });
-
-      it('Should show the validation error message about the name being taken', () => {
-        expect(element(by.id('nameField')).isPresent()).toBeTruthy('There should be an name field');
-        page.field('nameField').sendKeys('abc123');
-        expect(page.button('confirmAddTodoButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
-        page.field('ageField').click();
-        expect(page.getTextFromField('name-error')).toBe('Name has already been taken');
-      });
-
-      it('Should show the validation error message about email format', () => {
+      it('Should show the validation error message about status format', () => {
         expect(element(by.id('emailField')).isPresent()).toBeTruthy('There should be an email field');
         page.field('nameField').sendKeys('Donald Jones');
         page.field('ageField').sendKeys('30');
