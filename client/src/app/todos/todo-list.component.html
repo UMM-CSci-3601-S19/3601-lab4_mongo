@@ -42,10 +42,10 @@
         <div class="cardlist" *ngIf="todos; else todosError">
           <mat-card #elem class="todos" [id]="todo.category"
                     *ngFor="let todo of this.filterTodos(todoBody, todoCategory)">
-            <mat-icon *ngIf="todo.status === false">cancel_presentation</mat-icon>
-            <mat-icon *ngIf="todo.status === true">check_circle</mat-icon>
+            <mat-icon class="incomplete" *ngIf="todo.status === false">cancel_presentation</mat-icon>
+            <mat-icon class="complete" *ngIf="todo.status === true">check_circle</mat-icon>
             <mat-card-header>
-              <mat-card-title>{{todo.owner}}</mat-card-title>
+              <mat-card-title class="owner">{{todo.owner}}</mat-card-title>
               <mat-card-subtitle [ngClass]="{
               'video-games' : todo.category === 'video games',
               'homework' : todo.category === 'homework',
