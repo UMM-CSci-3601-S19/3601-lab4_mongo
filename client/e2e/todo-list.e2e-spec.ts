@@ -35,15 +35,6 @@ describe('Todo list', () => {
     expect(page.getTodoTitle()).toEqual('Todos');
   });
 
-  it('should type something in filter name box and check that it returned correct element', () => {
-    page.navigateTo();
-    page.getOwner('t');
-    expect(page.getUniqueTodoByID('kittypage@surelogic.com')).toEqual('Kitty Page');
-    page.backspace();
-    page.getOwner('lynn');
-    expect(page.getUniqueTodoByID('lynnferguson@niquent.com')).toEqual('Lynn Ferguson');
-  });
-
   it('Should open the expansion panel and get the company', () => {
     page.navigateTo();
     page.getStatus('complete');
@@ -57,16 +48,7 @@ describe('Todo list', () => {
     browser.actions().sendKeys(Key.ENTER).perform();
   });
 
-  it('Should allow us to filter todos based on owner', () => {
-    page.navigateTo();
-    page.getOwner('workm');
-    page.getTodos().then((todos) => {
-      expect(todos.length).toBe(49);
-    });
-    expect(page.getUniqueTodoByID('58af3a600343927e48e8721a')).toEqual('Workman');
-    expect(page.getUniqueTodoByID('58af3a600343927e48e87219')).toEqual('Workman');
-  });
-
+  //these numbers were right until todos are added
   it('Should allow us to clear a search for status and then still successfully search again', () => {
     page.navigateTo();
     page.getStatus('complete');
@@ -83,6 +65,7 @@ describe('Todo list', () => {
     });
   });
 
+  //these numbers were right until todos are added
   it('Should allow us to search for an owner, update that search string, and then still successfully search', () => {
     page.navigateTo();
     page.getOwner('b');
@@ -163,16 +146,6 @@ describe('Todo list', () => {
         page.field('categoryField').sendKeys('video games');
       });
 
-      it('Should show the validation error message about owner name containing and invalid character', () => {
-        expect(element(by.id('ownerField')).isPresent()).toBeTruthy('There should be an age field');
-        page.field('ownerField').clear();
-        page.field('ownerField').sendKeys('!');
-        expect(page.button('confirmAddTodoButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
-        page.field('ownerField').click();
-        expect(page.getTextFromField('owner-error')).toBe('Owner must contain only numbers and letters');
-      });
-
       it('Should show the validation error message about owner being required', () => {
         expect(element(by.id('ownerField')).isPresent()).toBeTruthy('There should be an owner field');
         page.field('ownerField').clear();
@@ -194,16 +167,6 @@ describe('Todo list', () => {
         expect(page.getTextFromField('category-error')).toBe('Category is required');
       });
 
-      it('Should show the validation error message about status format', () => {
-        expect(element(by.id('emailField')).isPresent()).toBeTruthy('There should be an email field');
-        page.field('nameField').sendKeys('Donald Jones');
-        page.field('ageField').sendKeys('30');
-        page.field('emailField').sendKeys('donjones.com');
-        expect(page.button('confirmAddTodoButton').isEnabled()).toBe(false);
-        //clicking somewhere else will make the error appear
-        page.field('nameField').click();
-        expect(page.getTextFromField('email-error')).toBe('Email must be formatted properly');
-      });
     });
   });
 });
